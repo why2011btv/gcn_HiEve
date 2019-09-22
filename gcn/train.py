@@ -2,10 +2,14 @@ from __future__ import division
 from __future__ import print_function
 
 import time
+import numpy as np
 import tensorflow as tf
 import networkx as nx
 from sklearn.model_selection import KFold, StratifiedKFold
 import datetime
+from sklearn.metrics import precision_recall_fscore_support
+from scipy.special import softmax
+from sklearn.metrics import classification_report
 
 from gcn.utils import *
 from gcn.models import GCN, MLP
@@ -160,10 +164,19 @@ sess = tf.Session()
 def evaluate(features, support, X, y, placeholders):
     t_test = time.time()
     feed_dict_val = construct_feed_dict(features, support, X, y, placeholders)
-    outs_val = sess.run([model.loss, model.accuracy], feed_dict=feed_dict_val)
-    return outs_val[0], outs_val[1], (time.time() - t_test)
+    outs_val = sess.run([model.loss, model.accuracy, model.outputs], feed_dict=feed_dict_val)
+    return outs_val[0], outs_val[1], outs_val[2], (time.time() - t_test)
 
-
+def print_res(y_pred, y_true):
+    y_pred = softmax(y_pred, axis=1)
+    #print(y_pred)
+    y_pred = np.argmax(y_pred, axis=1)
+    #print(y_pred)
+    
+    #print(precision_recall_fscore_support(y_true, y_pred, average='binary'))
+    target_names = ['class 0', 'class 1']
+    print(classification_report(y_true[:,1], y_pred, target_names=target_names))
+    
 # Init variables
 sess.run(tf.global_variables_initializer())
 
@@ -179,9 +192,14 @@ for epoch in range(FLAGS.epochs):
 
     # Training step
     outs = sess.run([model.opt_op, model.loss, model.accuracy, model.outputs], feed_dict=feed_dict)
-
+    print("train:\n")
+    print_res(outs[3], y_train)
+    
+    
     # Validation
-    cost, acc, duration = evaluate(features, support, X_valid, y_valid, placeholders)
+    cost, acc, output_val, duration = evaluate(features, support, X_valid, y_valid, placeholders)
+    print("valid:\n")
+    print_res(output_val, y_valid)
     cost_val.append(cost)
 
     # Print results
@@ -200,7 +218,9 @@ for epoch in range(FLAGS.epochs):
 print("Optimization Finished!")
 
 # Testing
-test_cost, test_acc, test_duration = evaluate(features, support, X_test, y_test, placeholders)
+test_cost, test_acc, output_test, test_duration = evaluate(features, support, X_test, y_test, placeholders)
+print_res(output_test, y_test)
+
 print("Test set results:", "cost=", "{:.5f}".format(test_cost),
       "accuracy=", "{:.5f}".format(test_acc), "time=", "{:.5f}".format(test_duration))
 
