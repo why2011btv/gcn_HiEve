@@ -99,7 +99,7 @@ class Dense(Layer):
         self.bias = bias
 
         # helper variable for sparse dropout
-        self.num_features_nonzero = placeholders['num_features_nonzero']
+        #self.num_features_nonzero = placeholders['num_features_nonzero']
 
         with tf.variable_scope(self.name + '_vars'):
             self.vars['weights'] = glorot([input_dim, output_dim],
@@ -148,7 +148,7 @@ class GraphConvolution(Layer):
         self.bias = bias
 
         # helper variable for sparse dropout
-        self.num_features_nonzero = placeholders['num_features_nonzero']
+        #self.num_features_nonzero = placeholders['num_features_nonzero']
 
         with tf.variable_scope(self.name + '_vars'):
             for i in range(len(self.support)):
@@ -165,7 +165,8 @@ class GraphConvolution(Layer):
 
         # dropout
         if self.sparse_inputs:
-            x = sparse_dropout(x, 1-self.dropout, self.num_features_nonzero)
+            x = sparse_dropout(x, 1-self.dropout, self.num_features_nonzero)    
+            # Haoyu did not delete the argument num_features_nonzero here, since sparse_inputs equals to False
         else:
             x = tf.nn.dropout(x, 1-self.dropout)
 

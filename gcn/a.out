@@ -1,0 +1,32 @@
+nohup: ignoring input
+WARNING: Logging before flag parsing goes to stderr.
+W0921 21:39:40.605396 140525900592960 deprecation_wrapper.py:119] From train.py:17: The name tf.set_random_seed is deprecated. Please use tf.compat.v1.set_random_seed instead.
+
+W0921 21:41:45.510547 140525900592960 deprecation_wrapper.py:119] From train.py:142: The name tf.sparse_placeholder is deprecated. Please use tf.compat.v1.sparse_placeholder instead.
+
+W0921 21:41:45.593277 140525900592960 deprecation_wrapper.py:119] From train.py:143: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+W0921 21:41:45.598177 140525900592960 deprecation_wrapper.py:119] From train.py:148: The name tf.placeholder_with_default is deprecated. Please use tf.compat.v1.placeholder_with_default instead.
+
+W0921 21:41:45.600867 140525900592960 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/gcn-1.0-py3.6.egg/gcn/models.py:90: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+
+W0921 21:41:45.601202 140525900592960 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/gcn-1.0-py3.6.egg/gcn/models.py:40: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+W0921 21:41:45.642489 140525900592960 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/gcn-1.0-py3.6.egg/gcn/layers.py:82: The name tf.summary.histogram is deprecated. Please use tf.compat.v1.summary.histogram instead.
+
+W0921 21:41:45.720437 140525900592960 deprecation.py:506] From /usr/local/lib/python3.6/dist-packages/gcn-1.0-py3.6.egg/gcn/layers.py:171: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+W0921 21:41:46.015953 140525900592960 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/gcn-1.0-py3.6.egg/gcn/metrics.py:8: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+
+Future major versions of TensorFlow will allow gradients to flow
+into the labels input on backprop by default.
+
+See `tf.nn.softmax_cross_entropy_with_logits_v2`.
+
+2019-09-21 21:41:46.598099: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-21 21:41:46.743107: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 1895985000 Hz
+2019-09-21 21:41:46.746189: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x44d2ab0 executing computations on platform Host. Devices:
+2019-09-21 21:41:46.746253: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-21 21:41:47.019443: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
